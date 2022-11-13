@@ -11,7 +11,6 @@ class Member extends Model
     protected $primary = 'Kode_Member';
     protected $table = "Member";
     protected $fillable = [
-        'Kode_Member',
         'Nama_Lengkap',
         'Alamat',
         'No_Telepon',

@@ -55,7 +55,8 @@ class MemberController extends Controller
 
     public function edit($Kode_Member)
     {
-        $Member = Member::where('Kode_Member', $Kode_Member)->get();
+        $Member = Member::where('Kode_Member', $Kode_Member)->first();
+        // dd($Member);
         if (!$Member) return redirect()->route('member.index')
             ->with('error_message', 'Member dengan id ' . $Kode_Member . ' tidak ditemukan');
         return view('member.edit', [
@@ -73,13 +74,16 @@ class MemberController extends Controller
 
     public function update(Request $request, $Kode_Member)
     {
-        $request->validate([
-            'Nama_Lengkap' => 'required',
-        ]);
+        // $request->validate([
+        //     'Nama_Lengkap' => 'required',
+        // ]);
         $array = $request->only([
-            'Nama_Lengkap'
+            'Nama_Lengkap',
+            'Alamat',
+            'No_Telepon',
+            'Status',
         ]);
-        $Member = Member::where('Kode_Member', $Kode_Member)->first();
+        $Member = Member::where('Kode_Member', $Kode_Member);
         $Member->update($array);
         return redirect()->route('member.index')
             ->with('success_message', 'Berhasil mengubah data Member');
